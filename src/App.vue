@@ -1,9 +1,11 @@
 <template>
+  <Clock :timestamp="timestamp" />
   <ScheduleTable :filas="filas" />
 </template>
 
 <script>
-import ScheduleTable from './components/ScheduleTable.vue'
+import ScheduleTable from './components/ScheduleTable.vue';
+import Clock from './components/Clock.vue';
 import txt from 'raw-loader!./assets/GRADE_DESTAQUE_688.txt';
 const lines = txt.split(/\n/g)
   .filter(Boolean) // descartando linhas vazias
@@ -20,6 +22,7 @@ export default {
   name: 'App',
   components: {
     ScheduleTable,
+    Clock,
   },
   data() {
     return {
