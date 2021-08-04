@@ -37,7 +37,7 @@ export default {
         font-weight: bolder;
     }
 
-    #clock > div {
+    #clock div {
         width: 100px;
         padding: 5px;
         text-align: center;
