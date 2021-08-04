@@ -25,13 +25,25 @@ export default {
     return {
       filmes: [],
       filas: [],
+      timestamp: dataEmTxt.getTime(),
+      simulacaoMinuto: 1000,
     }
   },
   mounted() {
     this.carregarFilmes();
     this.agruparFilmes();
     this.ordenarSessoes();
+    setInterval(() => {
+      this.limparEstado();
+      this.timestamp = this.timestamp + 60000;
+      console.log(new Date(this.timestamp))
+      this.carregarFilmes();
+      this.agruparFilmes();
+      this.ordenarSessoes();
+    }, this.simulacaoMinuto)
   },
+  created() {},
+  beforeUnmount() {},
   methods: {
     carregarFilmes() {
       for (const line of lines) {
@@ -69,7 +81,7 @@ export default {
         dataSessao.setHours(horas);
         dataSessao.setMinutes(minutos);
         dataSessao.setUTCSeconds(0);
-        const minutosAntesSessao = ( dataSessao.getTime() - dataEmTxt.getTime() ) / (1000 * 60);
+        const minutosAntesSessao = ( dataSessao.getTime() - this.timestamp ) / (1000 * 60);
         //
         const legenda = filme.siglaLegenda === 'L'
           ? 'LEG'
@@ -124,6 +136,10 @@ export default {
         fila.sessoes.sort((a, b) => a.minutosAntesSessao - b.minutosAntesSessao);
         fila.corIdade = !Number(fila.idadeMin) ? '#00af51' : faixas[fila.idadeMin];
       }
+    },
+    limparEstado() {
+      this.filmes = [];
+      this.filas = [];
     },
   },
 }

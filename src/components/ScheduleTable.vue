@@ -1,7 +1,10 @@
 <template>
     <div id="schedule-table">
         <div class="table-filmes">
-            <div class="row-filme" v-for="fila in filas" :key="fila">
+            <div class="row-filme" 
+                v-for="fila in filas" :key="fila"
+                v-bind:style="{ backgroundColor: fila.poltronaEspecial === 'VP' && 'black' }"
+            >
                 <div class="celda-nome-filme">{{ fila.nomeFilme }}</div>
                 <div class="celda-idade-min">
                     <span v-bind:style="{ backgroundColor: fila.corIdade }">
@@ -10,7 +13,10 @@
                 </div>
                 <div class="celda-exibicao-poltrona">{{ fila.exibicao === 'NO' ? '2D' : fila.exibicao}}{{ fila.poltronaEspecial }}</div>
                 <div class="celda-sessoes">
-                    <div class="celda-sessao" v-for="sessao in fila.sessoes" :key="sessao">
+                    <div class="celda-sessao" 
+                    v-for="sessao in fila.sessoes" 
+                    :key="sessao"
+                    v-bind:style="{ backgroundColor: sessao.sessaoVerde && 'green' }">
                         <div class="hora-sessao">{{ sessao.horaSessao }}</div>
                         <div v-if="sessao.sessaoEsgotada" class="esgotada">ESGOTADA</div>
                         <div v-else class="legenda">{{ sessao.legenda }}</div>
